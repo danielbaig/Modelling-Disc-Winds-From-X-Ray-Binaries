@@ -4,8 +4,8 @@ import astropy.io.ascii as io
 
 from tqdm import tqdm
 
-from . import bhtsne
-from ..dataRetrieval import prepareData
+from .bhtsne import bhtsne
+from .dataRetrieval import prepareData
 
 from pathlib import Path
 pathtohere = Path.cwd()
