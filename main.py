@@ -8,7 +8,7 @@ from contents.dataRetrieval import *
 from contents.pairwise import *
 from contents.primaryAnalysis import *
 from contents.quantile_quantile import *
-from contents.bhtsne.execute_bhtsne import *
+from contents.execute_bhtsne import *
 
 from contents.stringMinimiser import MCAnalysis
 from contents.stringMinimiser import organiseData
