@@ -93,9 +93,9 @@ def save_sortedData(data:np.ndarray):
 
     pathtohere = Path.cwd()
 
-    np.savetxt(pathtohere / 'contents/lineMinimiser/data/potentialPositions.txt', data.flatten())
+    np.savetxt(pathtohere / 'contents/stringMinimiser/data/potentialPositions.txt', data.flatten())
 
-    np.savetxt(pathtohere / 'contents/lineMinimiser/data/potentialPositionsDims.txt', np.asarray(data.shape,int))
+    np.savetxt(pathtohere / 'contents/stringMinimiser/data/potentialPositionsDims.txt', np.asarray(data.shape,int))
 
 
 
@@ -129,7 +129,7 @@ def testChanges(data:np.ndarray, variables:tuple, maxIndex:int, testVariable:int
                 ax.set_ylabel(j)
 
 
-    plt.savefig(pathtohere / f'contents/lineMinimiser/plots/tests/test_{variables[testVariable]}.png',
+    plt.savefig(pathtohere / f'contents/stringMinimiser/plots/tests/test_{variables[testVariable]}.png',
     bbox_inches='tight')
 
 
@@ -184,7 +184,7 @@ def get_densityNormalisation(maxIndex:int, testingIndex:int):
 def main():
     cutoff = 10000
 
-    print('\nOrganising data for line minimisation.')
+    print('\nOrganising data for string minimisation.')
 
     testingIndex = 15
     maxIndex = 15
@@ -198,14 +198,14 @@ def main():
     
     # Save data.
     save_sortedData(data)
-    np.save(pathtohere / 'contents/lineMinimiser/data/testDataPoints.npy', data_test)
-    np.savetxt(pathtohere / 'contents/lineMinimiser/data/densities.txt', densities)
+    np.save(pathtohere / 'contents/stringMinimiser/data/testDataPoints.npy', data_test)
+    np.savetxt(pathtohere / 'contents/stringMinimiser/data/densities.txt', densities)
 
 
     print('\nCreating testing plots.')
     for i in tqdm(range(len(variables))):
         testChanges(data, variables, maxIndex, i)
-    print('Tests available at:', pathtohere / 'contents/lineMinimiser/plots/tests/')
+    print('Tests available at:', pathtohere / 'contents/stringMinimiser/plots/tests/')
 
 
 
