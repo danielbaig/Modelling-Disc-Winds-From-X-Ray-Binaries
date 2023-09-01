@@ -1,0 +1,3 @@
+[submodule "contents/bhtsne"]
+	path = contents/bhtsne
+	url = https://github.com/lvdmaaten/bhtsne.git
