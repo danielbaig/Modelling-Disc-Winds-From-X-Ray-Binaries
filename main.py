@@ -10,8 +10,8 @@ from contents.primaryAnalysis import *
 from contents.quantile_quantile import *
 from contents.bhtsne.execute_bhtsne import *
 
-from contents.lineMinimiser import MCAnalysis
-from contents.lineMinimiser import organiseData
+from contents.stringMinimiser import MCAnalysis
+from contents.stringMinimiser import organiseData
 
 from examples.qq_flattening import qq_flattening
 
@@ -31,7 +31,7 @@ def getArguments(*args):
                     epilog='This code is still being developed so expect bugs.')
 
     parser.add_argument('directoryName', type=str,
-            help="The name of the directory being analysed or `all' if all directories' data are being compared. `line' if you want to perform data analysis on the line minimisation results. Use `prepareLine' to prepare the data for the line minimiser.")
+            help="The name of the directory being analysed or `all' if all directories' data are being compared. `string' if you want to perform data analysis on the string minimisation results. Use `prepareString' to prepare the data for the string minimiser.")
     parser.add_argument('-s','--includeSpectrum', default=True, const=False, action='store_const',
             help='Whether to recompute the spectrum plots.')
     parser.add_argument('-p','--includePairwise', default=True, const=False, action='store_const',
@@ -162,9 +162,9 @@ def main(*args, **kwds):
         if args.directoryName=='all':
             compareAll()
 
-        elif args.directoryName=='line':
+        elif args.directoryName=='string':
             MCAnalysis.main()
-        elif args.directoryName=='prepareLine':
+        elif args.directoryName=='prepareString':
             organiseData.main()
 
         elif args.compareTo==None:
