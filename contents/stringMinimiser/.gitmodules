@@ -1,3 +1,0 @@
-[submodule "lib/eigen-3.4.0"]
-	path = lib/eigen-3.4.0
-	url = https://github.com/libigl/eigen.git
