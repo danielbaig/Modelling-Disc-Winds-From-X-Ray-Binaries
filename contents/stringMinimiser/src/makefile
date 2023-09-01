@@ -15,7 +15,7 @@ LDFLAGS=-I$(LDIR)
 _DEPS = ExtraMaths.h Random.h Energy.h MC_minimiser.h DataManager.h Timer.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = lineMinimiser.o ExtraMaths.o Random.o Energy.o MC_minimiser.o TensorConvert.o DataManager.o Timer.o
+_OBJ = stringMinimiser.o ExtraMaths.o Random.o Energy.o MC_minimiser.o TensorConvert.o DataManager.o Timer.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

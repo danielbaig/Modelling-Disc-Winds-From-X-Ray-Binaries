@@ -38,7 +38,7 @@ def plotEnergyHistory(steps:np.ndarray, energyHistory_mean:np.ndarray, energyHis
 
     ax.grid()
 
-    plt.savefig(pathtohere / 'contents/lineMinimiser/plots/energyHistory.png', bbox_inches='tight')
+    plt.savefig(pathtohere / 'contents/stringMinimiser/plots/energyHistory.png', bbox_inches='tight')
 
 
 ## These will alll be integrated with pairwise.py at some point (or at leasts should).
@@ -149,7 +149,7 @@ def displayPairwise(variables:tuple, samplePositions:np.ndarray,
 
 
 
-    plt.savefig(pathtohere / 'contents/lineMinimiser/plots/variableParameterSpace.png', bbox_inches='tight')
+    plt.savefig(pathtohere / 'contents/stringMinimiser/plots/variableParameterSpace.png', bbox_inches='tight')
 
 ##################################
 
@@ -170,7 +170,7 @@ def makePowerPointTitlePage(prs):
     title = slide.shapes.title
     subtitle = slide.placeholders[1]
 
-    title.text = 'Monte Carlo parameter space line minimisation prediction.'
+    title.text = 'Monte Carlo parameter space string minimisation prediction.'
     subtitle.text = 'Generated with python-pptx.'
 
     return prs
@@ -196,7 +196,7 @@ def designPowerPoint(prs, numSamples:int):
 
     for i in range(numSamples):
         slide = prs.slides.add_slide(blank_layout)
-        picture = slide.shapes.add_picture(f'contents/lineMinimiser/data/alongPath/{i}.png', x, y,height=height)
+        picture = slide.shapes.add_picture(f'contents/stringMinimiser/data/alongPath/{i}.png', x, y,height=height)
 
     return prs
 
@@ -213,7 +213,7 @@ def createFrames(samplePositions:np.ndarray, variables:tuple):
     # Create pairwise images.
     for i in range(samplePositions.shape[1]):
         pairwise = Pairwise(samplePositions[:,i], variables,
-                            f'contents/lineMinimiser/data/alongPath/{i}.png', colours='log(t_e)',
+                            f'contents/stringMinimiser/data/alongPath/{i}.png', colours='log(t_e)',
                             directoryIsPath=True, isUpperOn=False)
         pairwise.createPairwiseFigure()
 
@@ -232,7 +232,7 @@ def createPowerPoint(numSamples:int):
     prs = Presentation()
     prs = makePowerPointTitlePage(prs)
     prs = designPowerPoint(prs, numSamples)
-    prs.save(pathtohere / 'contents/lineMinimiser/plots/pointTrajectories.pptx')
+    prs.save(pathtohere / 'contents/stringMinimiser/plots/pointTrajectories.pptx')
     
 
 
@@ -245,9 +245,9 @@ def createGIF(numSamples:int):
         - numSamples:int: Number of samples.
     """
 
-    frames = [Image.open(pathtohere / f'contents/lineMinimiser/data/alongPath/{i}.png') for i in range(numSamples)]
+    frames = [Image.open(pathtohere / f'contents/stringMinimiser/data/alongPath/{i}.png') for i in range(numSamples)]
     frames_init = frames[0]
-    frames_init.save(pathtohere / 'contents/lineMinimiser/plots/animation.gif', format='GIF',
+    frames_init.save(pathtohere / 'contents/stringMinimiser/plots/animation.gif', format='GIF',
                         append_images=frames[1:] + frames[-2:0:-1],
                         save_all=True,duration=100,loop=0,subrectangles=True)
 
@@ -270,7 +270,7 @@ def evaluateAccuracy(variables:tuple, steps:np.ndarray, energyHistory_mean:np.nd
 
     indicies = np.linspace(steps[0],steps[-1],samplePositions.shape[1], dtype=int)
 
-    actualPositions = np.load(pathtohere / 'contents/lineMinimiser/data/testDataPoints.npy')
+    actualPositions = np.load(pathtohere / 'contents/stringMinimiser/data/testDataPoints.npy')
 
     differences_mean = np.ones(samplePositions.shape[1])
     differences_std = np.empty_like(differences_mean)
@@ -298,36 +298,36 @@ def evaluateAccuracy(variables:tuple, steps:np.ndarray, energyHistory_mean:np.nd
     ax.set_xlabel('average energy')
     ax.set_ylabel('average difference')
 
-    plt.savefig(pathtohere / 'contents/lineMinimiser/plots/accuracy.png', bbox_inches='tight')
+    plt.savefig(pathtohere / 'contents/stringMinimiser/plots/accuracy.png', bbox_inches='tight')
 
 
 
 
 
 def main():
-    print('\nAnalysing data generated from line minimisation.')
+    print('\nAnalysing data generated from string minimisation.')
     variables = ('log(ne)','log(t_e)','log(t_r)','log(h1)','log(xi)','log(he1)')
     
     # Load calculated sample positions.
     samplePositionsDims = np.loadtxt(
-                    pathtohere / 'contents/lineMinimiser/data/samplePositionsDims.txt').T.astype(np.int64)
-    samplePositions = np.loadtxt(pathtohere / 'contents/lineMinimiser/data/samplePositions.txt', delimiter=',',
+                    pathtohere / 'contents/stringMinimiser/data/samplePositionsDims.txt').T.astype(np.int64)
+    samplePositions = np.loadtxt(pathtohere / 'contents/stringMinimiser/data/samplePositions.txt', delimiter=',',
                                     dtype=str)[:-1].reshape(samplePositionsDims).astype(np.float64)
 
     # Load known potentials.
-    potentialPositionsDims = np.loadtxt(pathtohere / 'contents/lineMinimiser/data/potentialPositionsDims.txt').T.astype(np.int64)
-    potentialPositions = np.loadtxt(pathtohere / 'contents/lineMinimiser/data/potentialPositions.txt',
+    potentialPositionsDims = np.loadtxt(pathtohere / 'contents/stringMinimiser/data/potentialPositionsDims.txt').T.astype(np.int64)
+    potentialPositions = np.loadtxt(pathtohere / 'contents/stringMinimiser/data/potentialPositions.txt',
                                     dtype=float).reshape(potentialPositionsDims)
     potentialPositions_pf = np.loadtxt(pathtohere / 'data/features.txt', delimiter=' ',
                                     dtype=float, skiprows=1,usecols=(1,2,3,4))
     # Load energy history.
     (steps,
      energyHistory_mean,
-     energyHistory_std) = np.loadtxt(pathtohere / 'contents/lineMinimiser/data/energyHistory.txt', delimiter=',',
+     energyHistory_std) = np.loadtxt(pathtohere / 'contents/stringMinimiser/data/energyHistory.txt', delimiter=',',
                                     dtype=float).T
 
     # Load actual positions.
-    actualPositions = np.load(pathtohere / 'contents/lineMinimiser/data/testDataPoints.npy')
+    actualPositions = np.load(pathtohere / 'contents/stringMinimiser/data/testDataPoints.npy')
     
 
 
